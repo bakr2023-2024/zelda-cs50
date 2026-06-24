@@ -26,9 +26,10 @@ function GameObject:init(def, x, y)
 	-- dimensions
 	self.x = x
 	self.y = y
-	self.width = def.width
-	self.height = def.height
+	self.width, self.height = def.width, def.height
+	self.width2, self.height2 = def.width / 2, def.height / 2
 	self.projectile = nil
+	self.rotationAngle = 0
 	-- default empty collision callback
 	self.onCollide = function() end
 	-- default empty consume callback
@@ -38,14 +39,18 @@ end
 function GameObject:update(dt)
 	if self.projectile then
 		self.projectile:update(self, dt)
+		-- update rotation angle of object if it's being thrown
+		self.rotationAngle = self.rotationAngle + PROJECTILE_ROTATION_SPEED * dt
 	end
 end
 
 function GameObject:render(adjacentOffsetX, adjacentOffsetY)
+	-- apply rotation around the object center
 	love.graphics.draw(
 		gTextures[self.texture],
 		gFrames[self.texture][self.states[self.state].frame or self.frame],
-		self.x + adjacentOffsetX,
-		self.y + adjacentOffsetY
+		self.x + adjacentOffsetX + self.width2,
+		self.y + adjacentOffsetY + self.height2,
+		self.rotationAngle,1,1,self.width2,self.height2
 	)
 end

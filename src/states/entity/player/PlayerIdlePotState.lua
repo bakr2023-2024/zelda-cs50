@@ -19,6 +19,7 @@ function PlayerIdlePotState:enter(params)
 end
 
 function PlayerIdlePotState:update(dt)
+	-- if arrow key is pressed, transition to pot-walk state
 	if
 		love.keyboard.isDown("left")
 		or love.keyboard.isDown("right")
@@ -36,7 +37,10 @@ function PlayerIdlePotState:update(dt)
 			width = self.pot.width,
 			height = self.pot.height,
 			direction = self.entity.direction,
-			dungeon = self.dungeon,
+			speed = THROWN_POT_SPEED,
+			breakable = true,
+			player = self.entity,
+			dungeon = self.dungeon
 		})
 		self.entity:changeState("idle")
 	end

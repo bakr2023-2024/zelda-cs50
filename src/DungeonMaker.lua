@@ -227,5 +227,26 @@ function DungeonMaker.generate(player, maxRooms)
         end
     end
 
-    return Dungeon(player, rooms, startX, startY)
+	-- place chest containing boomerang at a random room
+	local chest = GameObject(
+		GAME_OBJECT_DEFS["chest"],
+		math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+		math.random(
+			MAP_RENDER_OFFSET_Y + TILE_SIZE,
+			VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16
+		)
+	)
+	local validRooms = {}
+	for y = 1, maxRooms do
+		for x = 1, maxRooms do
+			if rooms[y][x] then
+				table.insert(validRooms, rooms[y][x])
+			end
+		end
+	end
+	local chestRoom = validRooms[math.random(#validRooms)]
+	table.insert(rooms[chestRoom.y][chestRoom.x].objects, chest)
+
+	-- return chest room coordinates to mark in the map
+	return Dungeon(player, rooms, startX, startY), chestRoom.x, chestRoom.y
 end

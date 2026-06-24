@@ -27,7 +27,7 @@ function PlayState:init()
 		offsetY = 5,
 	})
 
-	self.dungeon = DungeonMaker.generate(self.player, 10)
+	self.dungeon, self.chestRoomX, self.chestRoomY = DungeonMaker.generate(self.player, 10)
 	self.currentRoom = Room(self.player)
 
 	self.player.stateMachine = StateMachine({
@@ -92,6 +92,14 @@ function PlayState:render()
 
 		healthLeft = healthLeft - 2
 	end
+	-- draw icon of boomerang, and grey it out if thrown
+	if self.player.hasBoomerang then
+		if self.player.threwBoomerang then
+			love.graphics.setColor(1, 1, 1, 0.25)
+		end
+		love.graphics.draw(gTextures["boomerang"], TILE_SIZE * 5, 2)
+		love.graphics.setColor(1, 1, 1, 1)
+	end
 
 	-- render grid of dungeon (8px tiles), top right of screen, if flag enabled
 	if renderMap then
@@ -103,6 +111,8 @@ function PlayState:render()
 				if self.dungeon.rooms[y][x] then
 					if self.dungeon.currentRoom.x == x and self.dungeon.currentRoom.y == y then
 						love.graphics.setColor(1, 0, 0, 0.5)
+					elseif self.chestRoomX == x and self.chestRoomY == y then -- highlight chest room in yellow
+						love.graphics.setColor(1, 1, 0, 0.5)
 					else
 						love.graphics.setColor(0, 1, 0, 0.5)
 					end

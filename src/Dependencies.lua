@@ -50,6 +50,7 @@ gTextures = {
 	["entities"] = love.graphics.newImage("graphics/entities.png"),
 	["character-pot-lift"] = love.graphics.newImage("graphics/character_pot_lift.png"),
 	["character-pot-walk"] = love.graphics.newImage("graphics/character_pot_walk.png"),
+    ['boomerang'] = love.graphics.newImage('graphics/boomerang.png')
 }
 
 gFrames = {
@@ -60,7 +61,8 @@ gFrames = {
     ['hearts'] = GenerateQuads(gTextures['hearts'], 16, 16),
     ['switches'] = GenerateQuads(gTextures['switches'], 16, 18),
     ['character-pot-lift'] = GenerateQuads(gTextures['character-pot-lift'],16,32),
-    ['character-pot-walk'] = GenerateQuads(gTextures['character-pot-walk'],16,32)
+    ['character-pot-walk'] = GenerateQuads(gTextures['character-pot-walk'],16,32),
+    ['boomerang'] = GenerateQuads(gTextures['boomerang'],16,16)
 }
 
 gFonts = {

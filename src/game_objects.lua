@@ -49,4 +49,27 @@ GAME_OBJECT_DEFS = {
 		defaultState = "pot",
 		states = { ["pot"] = { frame = 110 } },
 	},
+	-- chest object
+	['chest'] = {
+		type='chest',
+		texture = "tiles",
+		frame = 167,
+		width = 16,
+		height = 16,
+		solid = true,
+		consumable = false,
+		defaultState = "chest",
+		states = { ["chest"] = { frame = 167 } },
+	},
+	['boomerang'] = {
+				type='boomerang',
+		texture = "boomerang",
+		frame = 1,
+		width = 16,
+		height = 16,
+		solid = false,
+		consumable = false,
+		defaultState = "boomerang",
+		states = { ["boomerang"] = { frame = 1 } },
+	}
 }

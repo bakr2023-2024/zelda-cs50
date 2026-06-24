@@ -197,7 +197,7 @@ function Room:update(dt)
 	for i = #self.entities, 1, -1 do
 		local entity = self.entities[i]
 
-		-- remove entity from the table if health is <= 0
+		-- if entity is dead and hasn't dropped items yet, 50% chance to spawn a heart that restores 2 health upon consumption
 		if entity.health <= 0 then
 			entity.dead = true
 			if (not entity.dropped) and math.random(2) == 1 then
