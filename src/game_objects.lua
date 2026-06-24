@@ -25,6 +25,7 @@ GAME_OBJECT_DEFS = {
 			},
 		},
 	},
+	-- heart consumable that restores health
 	["heart"] = {
 		type = "heart",
 		texture = "hearts",
@@ -36,7 +37,16 @@ GAME_OBJECT_DEFS = {
 		defaultState = "heart",
 		states = { ["heart"] = { frame = 5 } },
 	},
+    -- pot object
 	["pot"] = {
-		-- TODO
+		type = "pot",
+		texture = "tiles",
+		frame = 110,
+		width = 16,
+		height = 16,
+		solid = true,
+		consumable = false,
+		defaultState = "pot",
+		states = { ["pot"] = { frame = 110 } },
 	},
 }

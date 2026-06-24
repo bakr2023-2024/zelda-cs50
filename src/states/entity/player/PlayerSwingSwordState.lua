@@ -61,10 +61,10 @@ end
 function PlayerSwingSwordState:update(dt)
 	-- check if hitbox collides with any entities in the scene
 	for k, entity in pairs(self.dungeon.currentRoom.entities) do
-		if entity:collides(self.swordHitbox) then
+		if entity:collides(self.swordHitbox) and not entity.dead then
 			entity:damage(1)
 			-- if enemy is dead, 50% chance to spawn a heart that restores 2 health when consumed
-			if entity.dead and math.random(2) == 1 then
+			if entity.health==0 and math.random(2) == 1 then
 				local obj =
 					GameObject(GAME_OBJECT_DEFS["heart"], entity.x + entity.width / 2, entity.y + entity.height / 2)
 				obj.onConsume = function()
