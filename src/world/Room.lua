@@ -200,6 +200,16 @@ function Room:update(dt)
 		-- remove entity from the table if health is <= 0
 		if entity.health <= 0 then
 			entity.dead = true
+			if (not entity.dropped) and math.random(2) == 1 then
+				local obj =
+					GameObject(GAME_OBJECT_DEFS["heart"], entity.x + entity.width / 2, entity.y + entity.height / 2)
+				obj.onConsume = function()
+					gSounds["hit-player"]:play()
+					self.player.health = math.min(self.player.health + 2, 6)
+				end
+				table.insert(self.objects, obj)
+				entity.dropped = true
+			end
 		elseif not entity.dead then
 			entity:processAI({ room = self }, dt)
 			entity:update(dt)
@@ -228,6 +238,9 @@ function Room:update(dt)
 			else
 				object:onCollide()
 			end
+		end
+		if object.projectile and object.projectile.collided then
+			table.remove(self.objects, i)
 		end
 	end
 end

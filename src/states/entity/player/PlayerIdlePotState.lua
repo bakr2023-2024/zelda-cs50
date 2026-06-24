@@ -29,6 +29,15 @@ function PlayerIdlePotState:update(dt)
 	end
 	-- if enter was pressed while carrying a pot, throw it as a projectile
 	if love.keyboard.wasPressed("enter") or love.keyboard.wasPressed("return") then
+		gSounds["hit-player"]:play()
+		self.pot.projectile = Projectile({
+			x = self.pot.x,
+			y = self.pot.y,
+			width = self.pot.width,
+			height = self.pot.height,
+			direction = self.entity.direction,
+			dungeon = self.dungeon,
+		})
 		self.entity:changeState("idle")
 	end
 end

@@ -22,6 +22,7 @@ require 'src.world.Doorway'
 require 'src.world.Dungeon'
 require 'src.DungeonMaker'
 require 'src.world.Room'
+require("src.Projectile")
 
 require 'src.states.BaseState'
 

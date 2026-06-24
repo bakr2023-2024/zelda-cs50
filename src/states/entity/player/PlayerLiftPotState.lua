@@ -9,6 +9,7 @@ end
 function PlayerLiftPotState:enter(params)
 	-- render offset for spaced character sprite (negated in render function of state)
 	self.pot = params.pot
+	self.pot.solid = false
 	self.pot.x, self.pot.y = self.player.x, self.player.y
 	self.player.offsetY = 5
 	self.player.offsetX = 0

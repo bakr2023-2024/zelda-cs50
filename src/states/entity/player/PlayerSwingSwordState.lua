@@ -63,16 +63,6 @@ function PlayerSwingSwordState:update(dt)
 	for k, entity in pairs(self.dungeon.currentRoom.entities) do
 		if entity:collides(self.swordHitbox) and not entity.dead then
 			entity:damage(1)
-			-- if enemy is dead, 50% chance to spawn a heart that restores 2 health when consumed
-			if entity.health==0 and math.random(2) == 1 then
-				local obj =
-					GameObject(GAME_OBJECT_DEFS["heart"], entity.x + entity.width / 2, entity.y + entity.height / 2)
-				obj.onConsume = function()
-					gSounds["hit-player"]:play()
-					self.player.health = math.min(self.player.health + 2, 6)
-				end
-				table.insert(self.dungeon.currentRoom.objects, obj)
-			end
 			gSounds["hit-enemy"]:play()
 		end
 	end

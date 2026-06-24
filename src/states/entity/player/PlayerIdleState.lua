@@ -33,7 +33,7 @@ function PlayerIdleState:update(dt)
 	end
 	-- if enter was pressed while facing a pot, transition to pot-lift state
 	if love.keyboard.wasPressed("enter") or love.keyboard.wasPressed("return") then
-		for i, object in ipairs(self.dungeon.currentRoom.objects) do
+		for _, object in ipairs(self.dungeon.currentRoom.objects) do
 			local dx, dy = self.entity.x - object.x, self.entity.y - object.y
 			if object.type == "pot" and abs(dx) <= object.width + 4 and abs(dy) <= object.height + 4 + 3 then
 				if
@@ -42,7 +42,6 @@ function PlayerIdleState:update(dt)
 					or ((dy <= 0 and dy >= -object.height - 4 - 3) and self.entity.direction == "down")
 					or ((dy >= 0 and dy <= object.height + 4 - 3) and self.entity.direction == "up")
 				then
-					table.remove(self.dungeon.currentRoom.objects, i)
 					self.entity:changeState("pot-lift", { pot = object })
 				end
 				break

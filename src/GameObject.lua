@@ -23,20 +23,23 @@ function GameObject:init(def, x, y)
 	self.defaultState = def.defaultState
 	self.state = self.defaultState
 	self.states = def.states or {}
-
 	-- dimensions
 	self.x = x
 	self.y = y
 	self.width = def.width
 	self.height = def.height
-
+	self.projectile = nil
 	-- default empty collision callback
 	self.onCollide = function() end
 	-- default empty consume callback
 	self.onConsume = function() end
 end
 
-function GameObject:update(dt) end
+function GameObject:update(dt)
+	if self.projectile then
+		self.projectile:update(self, dt)
+	end
+end
 
 function GameObject:render(adjacentOffsetX, adjacentOffsetY)
 	love.graphics.draw(
